@@ -89,7 +89,7 @@ public class WriteArticleServlet extends HttpServlet {
 				
 				id = Integer.parseInt(request.getParameter("id").trim());  
 				title = request.getParameter("title").trim();
-				activitysId = Integer.parseInt(request.getParameter("activitysId").trim());  //TODO
+				activitysId = Integer.parseInt(request.getParameter("activitysId").trim());
 				articleType = Integer.parseInt(request.getParameter("articleType").trim());
 				showArticle = Integer.parseInt(request.getParameter("showArticle").trim());
 				memberId = Integer.parseInt(request.getParameter("memberId").trim());
@@ -104,7 +104,7 @@ public class WriteArticleServlet extends HttpServlet {
 		        {
 //		          System.out.println("Get some SQL commands done!");
 		          request.getSession(true).invalidate();
-		          request.getRequestDispatcher("/??????.jsp").forward(request,response);
+		          request.getRequestDispatcher("/?????.jsp").forward(request,response);
 		        }
 		      
 		      
