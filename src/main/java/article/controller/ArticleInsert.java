@@ -187,12 +187,12 @@ public class ArticleInsert extends HttpServlet {
 				
 				successMsgs.put("success", "資料新增成功");
 	            // 新增成功，通知瀏覽器對新網址發出請求
-				response.sendRedirect(response.encodeRedirectURL("Articlesert.jsp"));
+				response.sendRedirect(response.encodeRedirectURL("/article/PostArticle"));
 				return;
 			} catch (Exception e) {
 				e.printStackTrace(); 
 				errorMsgs.put("Exception", e.getMessage());
-				RequestDispatcher rd = request.getRequestDispatcher("ArticleInsert.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/article/PostArticle");
 				rd.forward(request, response);
 			}
 		}	
