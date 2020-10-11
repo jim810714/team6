@@ -5,6 +5,7 @@
 
 # folder
 target
+bin
 
 # Compiled class file
 *.class
