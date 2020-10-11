@@ -3,6 +3,7 @@ package article.dao.impl;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -19,6 +20,8 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 	private static final long serialVersionUID = 1L;
 	public static final String JNDI_DB_NAME = "java:comp/env/jdbc/BookDataSQLver";
 	DataSource ds = null;
+	private int id = 0;
+	
 	
 	public WriteArticleImpl_Jdbc() {
 		try {
@@ -31,7 +34,34 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 		}
 	}
 	
-	//刪文	
+	//查詢---
+	public ArticleBean getArticleById() {
+		ArticleBean ab = null;
+
+		String sql = "SELECT * FROM Article WHERE id= ?";
+		try (
+			Connection connection = ds.getConnection(); 
+			PreparedStatement ps = connection.prepareStatement(sql);
+		) {
+			ps.setInt(1, id);
+			try (ResultSet rs = ps.executeQuery();) {
+				if (rs.next()) {
+					ab = new ArticleBean(
+							rs.getInt(1), rs.getString(2), 
+							rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+				}
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("CompanyDaoImpl_Jdbc()#getCompanyById()發生例外: " 
+					+ ex.getMessage());
+		}
+		return ab;
+	}
+
+	
+	//刪文---	 TODO
 	public int deleteArticle(int no) {
 		int n = 0;
 		String sql = "DELETE FROM Article WHERE ID = ?";
@@ -49,19 +79,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 		} 
 		return n;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 新增一筆記錄---
+	// 新增一筆記錄---  TODO
 	
 		public int saveArticle(ArticleBean ab) {
 			int n = 0;
@@ -105,5 +123,17 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 				
 			}
 			return n;
-		}		
+		}	
+		
+		// 查詢 --- TODO
+		public 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }
