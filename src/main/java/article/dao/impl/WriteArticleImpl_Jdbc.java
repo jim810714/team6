@@ -34,7 +34,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 		}
 	}
 	
-	//查詢---
+	//查詢---	TODO
 	public ArticleBean getArticleById() {
 		ArticleBean ab = null;
 
