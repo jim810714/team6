@@ -31,7 +31,38 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 		}
 	}
 	
+	//刪文	
+	public int deleteArticle(int no) {
+		int n = 0;
+		String sql = "DELETE FROM Article WHERE ID = ?";
+		
+		try (
+			Connection connection = ds.getConnection();
+			PreparedStatement pStmt = connection.prepareStatement(sql);
+			){
+			pStmt.setInt(1, no);
+			n = pStmt.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("MemberDaoImpl_Jdbc()#deleteArticle()發生例外: " 
+					+ ex.getMessage());
+		} 
+		return n;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 新增一筆記錄---
+	
 		public int saveArticle(ArticleBean ab) {
 			int n = 0;
 
