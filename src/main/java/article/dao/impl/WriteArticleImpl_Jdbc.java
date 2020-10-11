@@ -54,7 +54,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new RuntimeException("CompanyDaoImpl_Jdbc()#getCompanyById()發生例外: " 
+			throw new RuntimeException("CompanyDaoImpl_Jdbc()#getArticleById()發生例外: " 
 					+ ex.getMessage());
 		}
 		return ab;
@@ -124,9 +124,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 			}
 			return n;
 		}	
-		
-		// 查詢 --- TODO
-		public 
+ 
 		
 		
 		
