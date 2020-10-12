@@ -36,8 +36,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 			throw new RuntimeException("BookDaoImpl_Jdbc()#建構子發生例外: " 
 										+ ex.getMessage());
 		}
-	}
-	
+	}	
 	
 	public List<AllArticleBean> getAllArticles(int articletypesId) {
 		List<AllArticleBean> list=new ArrayList<AllArticleBean>();
@@ -60,8 +59,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 				AllArticleBean allArticleBean = new AllArticleBean();
 				allArticleBean.setTitle(rs.getString(1));
 				allArticleBean.setMemberId(rs.getInt(2));
-				list.add(allArticleBean);
-				
+				list.add(allArticleBean);				
 			}
 			ps.clearParameters();
 		} catch (SQLException ex) {
@@ -70,15 +68,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 										+ ex.getMessage());
 		}		
 		return list;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	
 	//單筆查詢---	TODO
@@ -94,7 +84,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					ab = new ArticleBean(
-							rs.getString(2), 
+							rs.getString(2),
 							rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
 				}
 			}
