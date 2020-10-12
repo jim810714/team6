@@ -21,7 +21,7 @@
 
 <form action="<c:url value='WriteArticleServlet' />" method="post" class="was-validated" style="margin: 1% 10% 3% 3%;">
 
-<!-- ID-->
+<!-- ID
       <div class="mb-3">
         <div class="input-group is-invalid">
           <div class="input-group-prepend">
@@ -32,10 +32,10 @@
         
         </div>
         <div class="invalid-feedback">
-          <!-- Example invalid input group feedback -->
+          Example invalid input group feedback
         </div>
       </div>
-
+-->
       <br>
 
 

@@ -1,10 +1,13 @@
 package article.dao.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,6 +15,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.sql.DataSource;
 
 import article.dao.ArticleDao;
+import article.model.AllArticleBean;
 import article.model.ArticleBean;
 
 @MultipartConfig
@@ -34,11 +38,54 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 		}
 	}
 	
-	//查詢---	TODO
+	
+	public List<AllArticleBean> getAllArticles(int articletypesId) {
+		List<AllArticleBean> list=new ArrayList<AllArticleBean>();
+//		" SELECT A.ID, A.TITLE, A.MEMBER_ID, "
+//		+" F.CREATED_AT "
+//		+" FROM ARTICLE A, FORUMS F "
+//		+" WHERE A.ID = F.ARTICLE_ID(+) "
+//		+" WHERE ACTIVITYS_ID = ? "
+//		+" ORDER BY A.ID "
+		String sql0 = "select title, member_id from articles where articletypes_id = ? order by id desc";//where show_article = true
+		String sql = sql0;
+		
+		try (
+			Connection connection = ds.getConnection(); 
+			PreparedStatement ps = connection.prepareStatement(sql);
+		){
+			ps.setInt(1, articletypesId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				AllArticleBean allArticleBean = new AllArticleBean();
+				allArticleBean.setTitle(rs.getString(1));
+				allArticleBean.setMemberId(rs.getInt(2));
+				list.add(allArticleBean);
+				
+			}
+			ps.clearParameters();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("WriteArticleImpl_Jdbc()#getAllArticles()發生例外: " 
+										+ ex.getMessage());
+		}		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//單筆查詢---	TODO
 	public ArticleBean getArticleById() {
 		ArticleBean ab = null;
 
-		String sql = "SELECT * FROM Article WHERE id= ?";
+		String sql = "SELECT * FROM Article WHERE title LIKE '%?%'";
 		try (
 			Connection connection = ds.getConnection(); 
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -47,7 +94,7 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 			try (ResultSet rs = ps.executeQuery();) {
 				if (rs.next()) {
 					ab = new ArticleBean(
-							rs.getInt(1), rs.getString(2), 
+							rs.getString(2), 
 							rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
 				}
 			}
@@ -104,15 +151,13 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 //				pStmt.setInt(3, ab.getActivitysId());
 //				pStmt.setInt(4, ab.getShowArticle());
 //				pStmt.setInt(5, ab.getMemberId());
-//				pStmt.setInt(6, ab.getArticleType());
-				
+//				pStmt.setInt(6, ab.getArticleType());			
 				
 				pStmt.setString(1, ab.getTitle());
 				pStmt.setInt(2, ab.getActivitysId());
 				pStmt.setInt(3, ab.getShowArticle());
 				pStmt.setInt(4, ab.getMemberId());
-				pStmt.setInt(5, ab.getArticleType());
-				
+				pStmt.setInt(5, ab.getArticleType());			
 								
 				n = pStmt.executeUpdate();
 			} catch (SQLException ex) {
@@ -167,10 +212,6 @@ public class WriteArticleImpl_Jdbc implements Serializable, ArticleDao {
 				}
 				return n;
 			}	
-		
-		
-		
-		
 		
 		
 		
